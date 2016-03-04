@@ -201,3 +201,6 @@ EOF
 	sudo R CMD INSTALL --byte-compile plyrmr 
 fi
 
+echo "install.packages('Rserve',,'https://cloud.r-project.org')" | sudo R --no-save && echo "Rserve:$?"
+echo "install.packages('randomForest',,'https://cloud.r-project.org')" | sudo R --no-save && echo "randomForest:$?"
+R CMD /usr/lib64/R/library/Rserve/libs/Rserve --RS-port 1035 --no-save
