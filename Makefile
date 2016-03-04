@@ -2,7 +2,7 @@ YourBucketName = delayprediction2
 BUCKET_PATH_JAR = s3://$(YourBucketName)/FlightPrediction.jar
 BUCKET_PATH_INPUT = s3://flightprice/testDataA06/
 BUCKET_PATH_OUTPUT = s3://$(YourBucketName)/output
-CLUSTER_ID = j-1W8JBF00AZR8Z
+CLUSTER_ID = j-1G84M070XJ2P4
 
 LOCAL_NAME=A06
 
@@ -50,6 +50,8 @@ Cluster:
 Step:
 	aws s3 cp ./target/FlightPrediction.jar s3://$(YourBucketName)/
 	cd ./bin && ./Step.sh $(CLUSTER_ID) $(BUCKET_PATH_JAR) $(BUCKET_PATH_INPUT) $(BUCKET_PATH_OUTPUT)
+	rm -Rf aws_output
+	aws s3 cp s3://$(YourBucketName)/output/ ./aws_output/ --recursive
 
 Build:  FlightPrediction.class
 	cd target && jar -cvf FlightPrediction.jar *.class

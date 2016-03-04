@@ -30,13 +30,12 @@ public class FlightPredictionReducer
 		REXP x;
 		try {
         		RConnection c = new RConnection("127.0.0.1", 1035);
-			if (c == null)
-			x = c.eval("rnorm(10)");
+			d = c.eval("rnorm(10)").asDoubles();
 		} catch (Exception e) {
 			System.out.println("EX:"+e);
 			e.printStackTrace();
 		}		
 		
-		context.write(Key, new Text(result));
+		context.write(Key, new Text(Double.toString(d[0])));
 	}
 }
